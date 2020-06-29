@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c055827a9eec6458d1dc210e94402e, type: 3}
+  m_Name: Scissors
+  m_EditorClassIdentifier: 
+  FORM: 2
+  ABILITY_TYPE: 0
+  formSprite: {fileID: -7630961608506561967, guid: 36989c563cd3499418dbe788fe0a1a87,
+    type: 3}
+  movementSpeed: 35
+  jumpHeight: 1200
+  canCrouch: 1
+  canAtack: 1
+  overrideController: {fileID: 22100000, guid: ec39847da5d1e4444ac5da0aca97bb47, type: 2}
