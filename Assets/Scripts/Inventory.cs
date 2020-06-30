@@ -11,7 +11,11 @@ public class Inventory : MonoBehaviour
         if (collision.gameObject.GetComponent<IPickUpable>() != null)
         {
             var pickUpable = collision.gameObject.GetComponent<IPickUpable>();
+
+            if (pickUpable.IsPicked == true) return;
+
             pickUpable.PickUp(gameObject);
+            pickUpable.IsPicked = true;
         }
     }
 

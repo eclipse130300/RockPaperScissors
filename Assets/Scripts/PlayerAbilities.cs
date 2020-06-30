@@ -22,10 +22,21 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] float cutSphereRadius = 0.3f;
 
     private Animator animator;
+    public bool canUseAbility = true;
+    private DateTime timeToUnclockAbility;
 
     //test
     Vector3 pointToCheck;
     public Vector3 veloc;
+
+    float JumpValue
+    {
+        get
+        {
+            float val = characterController2D.m_Grounded ? 0 : 10;
+            return val;
+        }
+    }
 
     private void Awake()
     {
@@ -35,16 +46,15 @@ public class PlayerAbilities : MonoBehaviour
         animator = GetComponent<Animator>();
         damagable = GetComponent<IDamagable>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(abilityKey))
+        canUseAbility = timeToUnclockAbility <= DateTime.Now;
+
+
+        if (Input.GetKeyDown(abilityKey) && canUseAbility)
         {
 
             switch (playerTransformator.activeForm.ABILITY_TYPE)
@@ -59,20 +69,23 @@ public class PlayerAbilities : MonoBehaviour
                     Soar();
                     break;
             }
+
+            timeToUnclockAbility = DateTime.Now.AddSeconds(playerTransformator.activeForm.AbilityCoolDown);
         }
     }
 
     private void FixedUpdate()
     {
         veloc = rigidbody2D.velocity;
-
+        animator.SetFloat("Jump", JumpValue);
     }
 
     private void Soar()
     {
         if (!characterController2D.m_Grounded)
         {
-            animator.SetTrigger("Ability");
+            animator.SetTrigger("StartAbility");
+            /*            animator.Play("ToAbility");*/
             StartCoroutine(SoaringDown());
         }
             /*rigidbody2D.gravityScale = soarGravity;*/
@@ -108,7 +121,7 @@ public class PlayerAbilities : MonoBehaviour
     IEnumerator Invulnerability(float duration)
     {
         damagable.isInvulnerable = true;
-        animator.SetTrigger("Ability");
+        animator.SetTrigger("StartAbility");
 
 
         yield return new WaitForSeconds(duration);
@@ -119,7 +132,7 @@ public class PlayerAbilities : MonoBehaviour
 
     private void Cut()
     {
-        animator.SetTrigger("Ability");
+        animator.SetTrigger("StartAbility");
 
         var distance = GetComponent<CircleCollider2D>().radius + cutDistance;
 

@@ -8,6 +8,9 @@ public class KeyPickUp : MonoBehaviour, IPickUpable
     public KeyData key;
     private UIGameController gameController;
 
+    public bool IsPicked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    //TODO implement?
+
     private void Awake()
     {
         gameController = FindObjectOfType<UIGameController>();

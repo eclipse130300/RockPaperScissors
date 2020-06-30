@@ -20,4 +20,5 @@ MonoBehaviour:
   jumpHeight: 1200
   canCrouch: 1
   canAtack: 1
+  AbilityCoolDown: 0.1
   overrideController: {fileID: 22100000, guid: ec39847da5d1e4444ac5da0aca97bb47, type: 2}

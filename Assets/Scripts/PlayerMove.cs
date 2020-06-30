@@ -12,6 +12,15 @@ public class PlayerMove : MonoBehaviour
     Animator animator;
 
     float Hinput = 0f;
+    float RunSpeed
+    {
+        get
+        {
+            float newValue = Hinput > 0 ? Hinput : -Hinput;
+            return newValue;
+        }
+    }
+
 
     public float runSpeed = 40f;
     public float jumpHeight;
@@ -47,12 +56,13 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Hinput = Input.GetAxis("Horizontal") * runSpeed;
-        animator.SetFloat("RunSpeed", Hinput);
 
-        if(Input.GetButtonDown("Jump"))
+        float RunValue = controller2D.m_Grounded == true ? RunSpeed : 0;
+        animator.SetFloat("RunSpeed", RunValue);
+
+        if (Input.GetButtonDown("Jump"))
         {
             jump = true;
-            animator.SetTrigger("Jump");
         }
 
         if (_canCrouch)
@@ -77,15 +87,4 @@ public class PlayerMove : MonoBehaviour
         jump = false;
     }
 
-/*    public void OnChrouch(bool value)
-    {
-       if(value == true)
-        {
-            
-        }
-       else
-        {
-            
-        }
-    }*/
 }

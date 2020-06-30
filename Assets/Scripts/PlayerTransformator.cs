@@ -73,8 +73,6 @@ public class PlayerTransformator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(Time.timeScale);
         if(Input.GetKeyDown(transformKey))
         {
             Transformate();
@@ -86,8 +84,12 @@ public class PlayerTransformator : MonoBehaviour
         if (transformationAmount <= 0) return;
 
         var previousForm = activeForm;
+
+        animator.Play("Idle");
+        GetComponent<PlayerAbilities>().StopAllCoroutines();
+
         // switch form according o rules of the game
-        switch(activeForm.FORM)
+        switch (activeForm.FORM)
         {
             case PLAYER_FROMS.PAPER:
                 activeForm = rockForm;
