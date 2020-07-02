@@ -21,4 +21,5 @@ MonoBehaviour:
   canCrouch: 1
   canAtack: 1
   AbilityCoolDown: 0.1
+  Id: 3
   overrideController: {fileID: 22100000, guid: ec39847da5d1e4444ac5da0aca97bb47, type: 2}

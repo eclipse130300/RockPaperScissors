@@ -1,26 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIGameController : MonoBehaviour
+public class UIImagesAlphaChanger : MonoBehaviour
 {
-    public TextMeshProUGUI transformationCount;
 
     public Image[] images;
 
     public float transparentCol = 0.3f;
-
-    public GameObject restartPanel;
-
-    public GameObject finishGamePanel;
-
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        Time.timeScale = 1;
-
         images = GetComponentsInChildren<Image>();
         foreach (Image img in images)
         {
@@ -42,27 +33,9 @@ public class UIGameController : MonoBehaviour
             }
         }
     }
-
-    public void ShowRestartButton()
+    // Update is called once per frame
+    void Update()
     {
-        restartPanel.SetActive(true);
-        Time.timeScale = 0;
+        
     }
-
-    public void LoadMainMenu()
-    {
-        SceneManipulator.Instance.LoadMainMenu();
-    }
-
-    public void Restart()
-    {
-        SceneManipulator.Instance.RestartLevel();
-    }
-
-    public void FinishGame()
-    {
-        finishGamePanel.SetActive(true);
-        Time.timeScale = 0;
-    }
-
 }

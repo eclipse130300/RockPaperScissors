@@ -15,7 +15,10 @@ public class FormData : ScriptableObject
     public float jumpHeight;
     public bool canCrouch;
     public bool canAtack;
-    public double AbilityCoolDown;
+    /*public double AbilityCoolDown;*/
+    public float AbilityCoolDown;
+
+    public int Id;
 
     public AnimatorOverrideController overrideController;
 }

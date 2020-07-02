@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PlayerAbilities : MonoBehaviour
+public class PlayerAbilities : MonoBehaviour, IHaveCooldown
 {
     public KeyCode abilityKey = KeyCode.E;
 
@@ -20,10 +20,11 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] float invulnerabilityDuration;
     [SerializeField] float cutDistance;
     [SerializeField] float cutSphereRadius = 0.3f;
-
+    [SerializeField] int id;
+    [SerializeField] float coolDownDuration;
     private Animator animator;
     public bool canUseAbility = true;
-    private DateTime timeToUnclockAbility;
+ /*   private DateTime timeToUnclockAbility;*/
 
     //test
     Vector3 pointToCheck;
@@ -38,6 +39,13 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
+
+    public int CoolDownId => playerTransformator.activeForm.Id;
+    public float CoolDownDuration => playerTransformator.activeForm.AbilityCoolDown;
+
+    [SerializeField] private CoolDownSystem cdSystem;
+
+
     private void Awake()
     {
         characterController2D = GetComponent<CharacterController2D>();
@@ -51,7 +59,8 @@ public class PlayerAbilities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        canUseAbility = timeToUnclockAbility <= DateTime.Now;
+        /*        canUseAbility = timeToUnclockAbility <= DateTime.Now;*/
+        canUseAbility = !cdSystem.IsOnCoolDown(CoolDownId);
 
 
         if (Input.GetKeyDown(abilityKey) && canUseAbility)
@@ -69,8 +78,8 @@ public class PlayerAbilities : MonoBehaviour
                     Soar();
                     break;
             }
-
-            timeToUnclockAbility = DateTime.Now.AddSeconds(playerTransformator.activeForm.AbilityCoolDown);
+            cdSystem.PutOnCooldown(this);
+/*            timeToUnclockAbility = DateTime.Now.AddSeconds(playerTransformator.activeForm.AbilityCoolDown);*/
         }
     }
 
